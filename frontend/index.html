@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Agricultural Management System | Tamil Nadu Agro-Tech Hub</title>
+  <meta name="description" content="Next-generation smart agricultural management system for Tamil Nadu farmlands. Live land reports, precision telemetry, and automated irrigation conceived by Sanofar Fathima I.">
+  
+  <!-- Modern Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Rapid Asset Loading: Preconnect & Preload Featured Telemetry Landscape -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=75" fetchpriority="high">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Protocol Detection Indicator -->
+  <div id="file-protocol-banner" style="display: none; background: #000; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.4); text-align: center; padding: 6px 12px; font-size: 12px; z-index: 99999;">
+    💡 Running via local file protocol. For networked IoT telemetry, open in browser: <a href="http://localhost:3000" style="color: #60a5fa; font-weight: 700; text-decoration: underline;">http://localhost:3000</a>
+  </div>
+
+  <!-- =========================================================================
+       1. INITIAL AUTHENTICATION VIEW (LOGIN / SIGN IN / SIGN UP / CREATOR GATE)
+       ========================================================================= -->
+  <section id="auth-view">
+    <div class="auth-wrapper">
+      <div class="auth-header">
+        <div class="logo-badge">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/>
+            <path d="M12 6v12"/>
+            <path d="M8 10c2 0 4 2 4 4"/>
+            <path d="M16 10c-2 0-4 2-4 4"/>
+          </svg>
+        </div>
+        <h2>Smart Agricultural Management System</h2>
+        <p>Tamil Nadu Geospatial Soil Telemetry & IoT Control Platform</p>
+        <div class="auth-creator-tag">
+          Architect & Creator: <strong>Sanofar Fathima I</strong>
+        </div>
+      </div>
+
+      <!-- Auth Tabs: Sign In / Sign Up / Creator Admin Gate -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" data-tab="signin">
+          <span>🔑</span> Sign In
+        </button>
+        <button class="auth-tab-btn" data-tab="signup">
+          <span>📝</span> Sign Up (Farmer)
+        </button>
+        <button class="auth-tab-btn admin-gate-tab" data-tab="admin" title="Strictly for Creator Sanofar Fathima I">
+          <span style="color: var(--accent-cyan);">🛡️</span> Creator Admin
+        </button>
+      </div>
+
+      <div class="auth-body">
+        
+        <!-- PANE 1: CUSTOMER SIGN IN -->
+        <div id="pane-signin" class="auth-form-pane">
+          <form onsubmit="App.handleSignIn(event)">
+            <div class="form-group">
+              <label for="signin-email">Farmer / Customer Email</label>
+              <input type="email" id="signin-email" class="input-field" placeholder="e.g. revathi.farm@gmail.com" required>
+            </div>
+            <div class="form-group">
+              <label for="signin-password">Password</label>
+              <input type="password" id="signin-password" class="input-field" placeholder="Enter password (demo: farmer123)" required>
+            </div>
+            <button type="submit" class="btn btn-blue" style="width: 100%; margin-top: 0.5rem;">
+              Sign In to Agricultural Dashboard →
+            </button>
+          </form>
+
+          <div class="auth-demo-fills">
+            <p>1-Click Quick Demo Accounts:</p>
+            <div class="demo-chips">
+              <button class="demo-chip" onclick="App.fillDemoCredentials('revathi')">
+                🌾 R. Revathi (Thanjavur)
+              </button>
+              <button class="demo-chip" onclick="App.fillDemoCredentials('selvi')">
+                🥥 K. Selvi (Pollachi)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 2: CUSTOMER SIGN UP (FULL PROFILE) -->
+        <div id="pane-signup" class="auth-form-pane" style="display: none;">
+          <form onsubmit="App.handleSignUp(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" class="input-field" placeholder="e.g. S. Meenakshi" required>
+              </div>
+              <div class="form-group">
+                <label for="reg-email">Email Address</label>
+                <input type="email" id="reg-email" class="input-field" placeholder="meenakshi.agri@gmail.com" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-password">Create Password</label>
+                <input type="password" id="reg-password" class="input-field" placeholder="Min. 6 characters" required>
+              </div>
+              <div class="form-group">
+                <label for="reg-phone">Phone / Mobile</label>
+                <input type="tel" id="reg-phone" class="input-field" placeholder="+91 94430 00000" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-dob">Date of Birth (DOB)</label>
+                <input type="date" id="reg-dob" class="input-field" value="1992-06-15" required>
+              </div>
+              <div class="form-group">
+                <label for="reg-district">Tamil Nadu District</label>
+                <select id="reg-district" class="input-field">
+                  <option value="Thanjavur">Thanjavur (Cauvery Delta)</option>
+                  <option value="Coimbatore (Pollachi)">Coimbatore / Pollachi</option>
+                  <option value="Erode">Erode (Bhavani Basin)</option>
+                  <option value="The Nilgiris">The Nilgiris (Hill Agro-Zone)</option>
+                  <option value="Madurai">Madurai (Southern Zone)</option>
+                  <option value="Tirunelveli">Tirunelveli (Tamirabarani)</option>
+                  <option value="Salem">Salem</option>
+                  <option value="Dindigul">Dindigul</option>
+                  <option value="Tiruchirappalli">Tiruchirappalli</option>
+                  <option value="Cuddalore">Cuddalore</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-farmsize">Farm Size (Acres)</label>
+                <input type="text" id="reg-farmsize" class="input-field" placeholder="e.g. 10.5 Acres" value="8 Acres">
+              </div>
+              <div class="form-group">
+                <label for="reg-crop">Primary Crop(s)</label>
+                <input type="text" id="reg-crop" class="input-field" placeholder="e.g. Samba Paddy, Banana" value="Samba Paddy">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Profile Picture (DP)</label>
+              <div class="dp-upload-wrapper" style="margin-bottom: 0;">
+                <div class="dp-preview-box" onclick="document.getElementById('reg-avatar-file').click()" title="Click to upload photo" style="width: 54px; height: 54px;">
+                  <img id="reg-dp-preview" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=70" alt="Profile Picture">
+                  <div class="dp-upload-overlay">
+                    <span>📷</span>
+                  </div>
+                </div>
+                <div class="dp-upload-meta">
+                  <input type="file" id="reg-avatar-file" accept="image/*" style="display: none;" onchange="App.handleDpFileSelect(event, 'reg')">
+                  <input type="hidden" id="reg-avatar" value="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=70">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <button type="button" class="btn-upload-file" onclick="document.getElementById('reg-avatar-file').click()">
+                      📁 Choose Photo
+                    </button>
+                    <span id="reg-file-name" style="font-size: 0.72rem; color: var(--text-muted);">Select image from device</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="terms-checkbox-wrap">
+              <input type="checkbox" id="reg-terms" required checked>
+              <label for="reg-terms">
+                I have read and agree to the <a id="view-terms-link" style="color: var(--accent-cyan); text-decoration: underline; cursor: pointer;">Tamil Nadu Smart Agri Terms and Conditions</a>.
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-blue" style="width: 100%;">
+              Complete Registration & Enter Platform →
+            </button>
+          </form>
+        </div>
+
+        <!-- PANE 3: CREATOR ADMIN GATE (STRICT ACCESS FOR SANOFAR FATHIMA I) -->
+        <div id="pane-admin" class="auth-form-pane" style="display: none;">
+          <div style="background: #000; border: 1px solid var(--accent-blue-dark); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.15rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent-cyan); font-size: 0.8rem; font-weight: 700;">
+              <span>🛡️</span> STRICT CREATOR ADMINISTRATIVE GATE
+            </div>
+            <p style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 0.35rem;">
+              This administrative nexus is reserved exclusively for the platform creator <strong>Sanofar Fathima I</strong>. Customer and farmer logins are rejected at this checkpoint.
+            </p>
+          </div>
+
+          <form onsubmit="App.handleAdminLogin(event)">
+            <div class="form-group">
+              <label for="admin-email">Creator Email</label>
+              <input type="email" id="admin-email" class="input-field" value="sanofar.fathima@smartagri.tn.gov.in" required>
+            </div>
+            <div class="form-group">
+              <label for="admin-password">Creator Security Passkey</label>
+              <input type="password" id="admin-password" class="input-field" value="admin" required>
+            </div>
+            <button type="submit" class="btn btn-blue" style="width: 100%;">
+              Authenticate as Creator Sanofar Fathima I →
+            </button>
+          </form>
+
+          <div class="auth-demo-fills">
+            <p>Admin Auto-Verification:</p>
+            <div class="demo-chips">
+              <button class="demo-chip chip-admin" onclick="App.fillDemoCredentials('admin')">
+                ★ Sanofar Fathima I [AD] (1-Click Creator Verify)
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       2. MAIN APPLICATION (WITH LEFT SIDEBAR NAVIGATION COLUMN)
+       ========================================================================= -->
+  <div id="main-app">
+    <div class="app-shell">
+      
+      <!-- LEFT SIDEBAR NAVIGATION COLUMN -->
+      <aside class="app-sidebar">
+        <div>
+          <!-- Sidebar Header & Brand -->
+          <div class="sidebar-header">
+            <a href="#hero-section" class="sidebar-brand">
+              <div class="brand-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/>
+                  <path d="M12 6v12"/>
+                  <path d="M8 10c2 0 4 2 4 4"/>
+                  <path d="M16 10c-2 0-4 2-4 4"/>
+                </svg>
+              </div>
+              <div>
+                <div class="brand-title">Smart Agri</div>
+                <div class="brand-subtitle">Smart Agricultural System</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Vertical Nav Links Column -->
+          <nav class="sidebar-nav">
+            <ul class="sidebar-nav-list">
+              <li class="sidebar-nav-item">
+                <a href="#live-land-section" class="active">
+                  <span class="nav-icon">📡</span>
+                  <span>Live Land Report</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#farmlands-section">
+                  <span class="nav-icon">🌾</span>
+                  <span>Farmlands Gallery</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#guide-section">
+                  <span class="nav-icon">📖</span>
+                  <span>Agri-Tech Guide</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#revenue-section">
+                  <span class="nav-icon">📊</span>
+                  <span>Project Revenue</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#customers-section">
+                  <span class="nav-icon">👥</span>
+                  <span>Customer Directory</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#reviews-section">
+                  <span class="nav-icon">⭐</span>
+                  <span>Farmer Reviews</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#creator-section">
+                  <span class="nav-icon">👩‍💻</span>
+                  <span>Sanofar Fathima I</span>
+                </a>
+              </li>
+              <li class="sidebar-nav-item">
+                <a href="#about-section">
+                  <span class="nav-icon">ℹ️</span>
+                  <span>About & Support</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Sidebar Footer (Separate Admin Button & User Profile) -->
+        <div class="sidebar-footer">
+          <!-- Distinct Separate Admin Portal Button -->
+          <button id="nav-admin-btn" class="btn-sidebar-admin" title="Admin Portal (Restricted to Sanofar Fathima I)">
+            <span style="color: var(--accent-cyan);">🔒</span>
+            <span>Admin Portal</span>
+          </button>
+
+          <!-- Current User Session Info -->
+          <div class="sidebar-user-card" id="sidebar-user-badge"></div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT COLUMN (SCROLLABLE RIGHT VIEW) -->
+      <main class="app-main">
+        
+        <!-- Top App Bar -->
+        <header class="top-app-bar">
+          <div class="top-bar-left">
+            <div id="auth-notice-status">
+              <span>Node: Tamil Nadu Agri Network</span>
+            </div>
+            <span class="badge badge-blue"><span class="pulse-dot"></span> 38 Districts Live</span>
+          </div>
+
+          <div class="top-bar-right">
+            <!-- Theme Toggle -->
+            <button id="theme-toggle-btn" class="btn-theme-toggle" title="Toggle Dark / Light Theme">
+              <span id="theme-icon">☀️</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="content-body">
+          
+          <!-- Hero Announcement Card -->
+          <section id="hero-section" class="hero-card">
+            <span class="badge badge-blue" style="margin-bottom: 0.75rem;">
+              <span class="pulse-dot"></span> Precision Agro-Informatics Nexus
+            </span>
+            <h1>
+              Intelligent Soil Telemetry & Automated Irrigation for <span class="blue-txt">Tamil Nadu Farmlands</span>
+            </h1>
+            <p>
+              Conceived and engineered by <strong>Sanofar Fathima I</strong> to unify real-time IoT soil physics, Cauvery water stewardship, and localized agronomic advisory across all agrarian zones.
+            </p>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="#live-land-section" class="btn btn-blue">
+                📡 View Live Telemetry →
+              </a>
+              <a href="#guide-section" class="btn btn-outline">
+                📖 Open Agri-Tech Guide
+              </a>
+            </div>
+
+            <div class="hero-stats-row">
+              <div class="stat-item">
+                <div class="val">14,850+</div>
+                <div class="lbl">Acres Monitored</div>
+              </div>
+              <div class="stat-item">
+                <div class="val">14.2M L</div>
+                <div class="lbl">Water Conserved</div>
+              </div>
+              <div class="stat-item">
+                <div class="val">99.98%</div>
+                <div class="lbl">Probe Grid Uptime</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- LIVE TAMIL NADU COMMODITY MANDI TICKER -->
+          <div class="commodity-ticker-wrap">
+            <div class="commodity-ticker-label">
+              <span class="pulse-dot"></span> TN AGMARKNET LIVE:
+            </div>
+            <div class="commodity-pill">
+              <span class="c-name">Thanjavur Ponni Paddy:</span>
+              <span class="c-price">₹2,450 / Q</span>
+              <span class="c-trend-up">▲ +2.1%</span>
+            </div>
+            <div class="commodity-pill">
+              <span class="c-name">Pollachi Coconut (1000 nuts):</span>
+              <span class="c-price">₹38,500</span>
+              <span class="c-trend-up">▲ +1.8%</span>
+            </div>
+            <div class="commodity-pill">
+              <span class="c-name">Erode GI Turmeric:</span>
+              <span class="c-price">₹14,250 / Q</span>
+              <span class="c-trend-up">▲ +4.2%</span>
+            </div>
+            <div class="commodity-pill">
+              <span class="c-name">Nilgiris Leaf Grade Tea:</span>
+              <span class="c-price">₹148.50 / kg</span>
+              <span class="c-trend-up">▲ +0.9%</span>
+            </div>
+            <div class="commodity-pill">
+              <span class="c-name">Madurai GI Jasmine:</span>
+              <span class="c-price">₹850 / kg</span>
+              <span class="c-trend-up">▲ +12.5%</span>
+            </div>
+            <div class="commodity-pill">
+              <span class="c-name">Tirunelveli Black Gram:</span>
+              <span class="c-price">₹4,100 / Q</span>
+              <span class="c-trend-up">▲ +1.5%</span>
+            </div>
+          </div>
+
+          <!-- SECTION 1: LIVE LAND REPORT (COMPACT IMAGE & SENSORS) -->
+          <section id="live-land-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Real-Time Sensor Telemetry</span>
+                <h2>Live Land Report & Soil Diagnostics</h2>
+                <p>Live IoT ground telemetry across premier agro-climatic zones of Tamil Nadu.</p>
+              </div>
+              <span class="badge badge-blue"><span class="pulse-dot"></span> Live Telemetry Active</span>
+            </div>
+
+            <!-- TAMIL NADU WATER BASIN & RESERVOIR RADAR -->
+            <div style="margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px;">
+                  🌊 Tamil Nadu Major Irrigation Dam Storage Radar (Live PWD Telemetry)
+                </span>
+                <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">
+                  Updated: Today 06:00 AM IST | Stanley & Lower Bhavani Regulated
+                </span>
+              </div>
+              <div class="reservoir-grid">
+                <!-- Mettur Dam -->
+                <div class="reservoir-card">
+                  <div class="reservoir-card-header">
+                    <h4>Mettur Dam (Stanley)</h4>
+                    <span class="dam-basin">Cauvery Basin</span>
+                  </div>
+                  <div class="reservoir-progress-wrap">
+                    <div class="reservoir-progress-bar">
+                      <div class="reservoir-progress-fill" style="width: 83.7%;"></div>
+                    </div>
+                  </div>
+                  <div class="reservoir-meta-row">
+                    <span>Level: <strong>78.2 / 93.47 TMC</strong></span>
+                    <span style="color: #10b981;">83.7% Full (Delta Open)</span>
+                  </div>
+                  <div class="reservoir-meta-row" style="margin-top: 0.35rem; color: var(--text-muted);">
+                    <span>Inflow: 14,200 cusecs</span>
+                    <span>Outflow: 12,000 cusecs</span>
+                  </div>
+                </div>
+
+                <!-- Bhavanisagar Dam -->
+                <div class="reservoir-card">
+                  <div class="reservoir-card-header">
+                    <h4>Bhavanisagar Dam</h4>
+                    <span class="dam-basin">Lower Bhavani Project</span>
+                  </div>
+                  <div class="reservoir-progress-wrap">
+                    <div class="reservoir-progress-bar">
+                      <div class="reservoir-progress-fill" style="width: 74.7%;"></div>
+                    </div>
+                  </div>
+                  <div class="reservoir-meta-row">
+                    <span>Level: <strong>24.5 / 32.8 TMC</strong></span>
+                    <span style="color: #06b6d4;">74.7% Full (LBP Active)</span>
+                  </div>
+                  <div class="reservoir-meta-row" style="margin-top: 0.35rem; color: var(--text-muted);">
+                    <span>Inflow: 3,450 cusecs</span>
+                    <span>Outflow: 2,800 cusecs</span>
+                  </div>
+                </div>
+
+                <!-- Vaigai Dam -->
+                <div class="reservoir-card">
+                  <div class="reservoir-card-header">
+                    <h4>Vaigai Dam</h4>
+                    <span class="dam-basin">Vaigai-Periyar Basin</span>
+                  </div>
+                  <div class="reservoir-progress-wrap">
+                    <div class="reservoir-progress-bar">
+                      <div class="reservoir-progress-fill" style="width: 78.6%;"></div>
+                    </div>
+                  </div>
+                  <div class="reservoir-meta-row">
+                    <span>Level: <strong>4.8 / 6.1 TMC</strong></span>
+                    <span style="color: #06b6d4;">78.6% Full (Canal On)</span>
+                  </div>
+                  <div class="reservoir-meta-row" style="margin-top: 0.35rem; color: var(--text-muted);">
+                    <span>Inflow: 1,820 cusecs</span>
+                    <span>Outflow: 1,600 cusecs</span>
+                  </div>
+                </div>
+
+                <!-- Aliyar Dam -->
+                <div class="reservoir-card">
+                  <div class="reservoir-card-header">
+                    <h4>Aliyar Dam</h4>
+                    <span class="dam-basin">PAP System (Pollachi)</span>
+                  </div>
+                  <div class="reservoir-progress-wrap">
+                    <div class="reservoir-progress-bar">
+                      <div class="reservoir-progress-fill" style="width: 81.5%;"></div>
+                    </div>
+                  </div>
+                  <div class="reservoir-meta-row">
+                    <span>Level: <strong>3.1 / 3.8 TMC</strong></span>
+                    <span style="color: #10b981;">81.5% Full (Coconut Belt)</span>
+                  </div>
+                  <div class="reservoir-meta-row" style="margin-top: 0.35rem; color: var(--text-muted);">
+                    <span>Inflow: 850 cusecs</span>
+                    <span>Outflow: 720 cusecs</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- District Selection Tabs -->
+            <div id="district-tabs-container" class="district-tabs"></div>
+
+            <!-- Dynamic Live Report Display -->
+            <div id="live-report-display"></div>
+          </section>
+
+          <!-- SECTION 2: TAMIL NADU FARMLANDS GALLERY (COMPACT NATURAL IMAGES) -->
+          <section id="farmlands-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Authentic Regional Landscapes</span>
+                <h2>Tamil Nadu Farmlands & Agro-Zones</h2>
+                <p>Natural, authentic photography of thriving agrarian tracts under smart management.</p>
+              </div>
+            </div>
+
+            <div id="farmlands-gallery-container" class="places-grid"></div>
+          </section>
+
+          <!-- SECTION 3: COMPREHENSIVE AGRI-TECH GUIDE PAGES & USER MANUAL -->
+          <section id="guide-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Farmer Knowledge Hub & Documentation</span>
+                <h2>Agri-Tech User Guide & Field Manual</h2>
+                <p>Comprehensive operating guidelines, soil diagnostics, Tamil Nadu crop calendars, and precision fertigation tools.</p>
+              </div>
+            </div>
+
+            <!-- Interactive Navigation Tabs for Guide -->
+            <div class="guide-tabs-nav">
+              <button class="guide-tab-btn active" data-tab="guide-tab-modules" onclick="App.switchGuideTab('guide-tab-modules')">
+                📘 Core Modules
+              </button>
+              <button class="guide-tab-btn" data-tab="guide-tab-zones" onclick="App.switchGuideTab('guide-tab-zones')">
+                🗺️ TN Agro-Climatic Zones
+              </button>
+              <button class="guide-tab-btn" data-tab="guide-tab-pattam" onclick="App.switchGuideTab('guide-tab-pattam')">
+                🗓️ Crop Pattam (பட்டம்) Calendar
+              </button>
+              <button class="guide-tab-btn" data-tab="guide-tab-npk" onclick="App.switchGuideTab('guide-tab-npk')">
+                🧪 Soil NPK Deficiency Matrix
+              </button>
+              <button class="guide-tab-btn" data-tab="guide-tab-water" onclick="App.switchGuideTab('guide-tab-water')">
+                💧 Water Budgeting & Drip
+              </button>
+              <button class="guide-tab-btn" data-tab="guide-tab-schemes" onclick="App.switchGuideTab('guide-tab-schemes')">
+                🏛️ TN Govt Schemes & Subsidies
+              </button>
+              <button class="guide-tab-btn" data-tab="guide-tab-calc" onclick="App.switchGuideTab('guide-tab-calc')">
+                🧮 Precision Fertigation Calculator
+              </button>
+            </div>
+
+            <!-- PANE 1: CORE HARDWARE & ARCHITECTURE MODULES -->
+            <div id="guide-tab-modules" class="guide-pane active">
+              <div class="guide-grid">
+                <!-- Guide Card 1 -->
+                <div class="guide-card">
+                  <div class="step-num">MODULE 01 — HARDWARE & TELEMETRY</div>
+                  <h4>Deploying IoT Soil Probes</h4>
+                  <p>Install the multi-depth sensor node 15 cm and 45 cm beneath the topsoil layer for accurate root-zone analysis.</p>
+                  <ul class="guide-steps-list">
+                    <li>Calibrate optical NPK sensor with local alluvium / red loam.</li>
+                    <li>Ensure solar battery node receives 4+ hours direct sunlight daily.</li>
+                    <li>Confirm LoRaWAN signal lock to the nearest district hub gateway.</li>
+                  </ul>
+                </div>
+
+                <!-- Guide Card 2 -->
+                <div class="guide-card">
+                  <div class="step-num">MODULE 02 — WATER STEWARDSHIP</div>
+                  <h4>Automated Solenoid Drip Rules</h4>
+                  <p>The system regulates micro-drip actuation based on soil field capacity to prevent over-watering during monsoon seasons.</p>
+                  <ul class="guide-steps-list">
+                    <li>Cauvery Delta Paddy: Maintain 3-5 cm standing water layer.</li>
+                    <li>Pollachi Coconut: Drip rings actuate below 50% field capacity.</li>
+                    <li>Emergency shut-off triggers automatically if rainfall exceeds 15 mm.</li>
+                  </ul>
+                </div>
+
+                <!-- Guide Card 3 -->
+                <div class="guide-card">
+                  <div class="step-num">MODULE 03 — CROP BIO-CHEMISTRY</div>
+                  <h4>Interpreting NPK & pH Thresholds</h4>
+                  <p>Optimal chemical parameters for premier crops across Tamil Nadu agro-zones:</p>
+                  <ul class="guide-steps-list">
+                    <li>Samba Paddy: pH 6.5–7.0 | N: 280 kg/ha | K: 220 kg/ha.</li>
+                    <li>Nilgiris Tea: Acidic pH 4.8–5.5 | High organic humus balance.</li>
+                    <li>Erode Turmeric: Neutral pH 6.8–7.2 | Rich in potassium & zinc.</li>
+                  </ul>
+                </div>
+
+                <!-- Guide Card 4 -->
+                <div class="guide-card">
+                  <div class="step-num">MODULE 04 — GOVERNANCE</div>
+                  <h4>Creator Admin Nexus Security</h4>
+                  <p>Platform telemetry and wide-area valve actuation are secured with role-based cryptographic access:</p>
+                  <ul class="guide-steps-list">
+                    <li>Admin block restricted strictly to creator <strong>Sanofar Fathima I</strong>.</li>
+                    <li>Customers retain local farm manual valve override rights.</li>
+                    <li>24/7 Farmer Telephony Helpline: <code>+91 94440 12345</code>.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANE 2: TAMIL NADU AGRO-CLIMATIC ZONES -->
+            <div id="guide-tab-zones" class="guide-pane">
+              <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+                <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem;">
+                  Tamil Nadu's 7 Distinct Agro-Climatic Zones
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+                  Tamil Nadu possesses a uniquely diverse agrarian terrain ranging from sea-level coastal delta alluvium to 2,000+ meter montane hills. Our sensor network tailors irrigation and soil nutrient thresholds specifically for each zone:
+                </p>
+              </div>
+
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Zone Name</th>
+                      <th>Districts Covered</th>
+                      <th>Predominant Soil Type</th>
+                      <th>Annual Rainfall</th>
+                      <th>Key Crops</th>
+                      <th>IoT Sensor Calibration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Cauvery Delta Zone</strong></td>
+                      <td>Thanjavur, Tiruvarur, Nagapattinam, Mayiladuthurai, parts of Cuddalore & Pudukkottai</td>
+                      <td>Deep Coastal Alluvium, Heavy Clay</td>
+                      <td>950 – 1,150 mm (North-East Monsoon)</td>
+                      <td>Kuruvai & Samba Paddy, Black Gram, Green Gram, Banana</td>
+                      <td>Standing water sensor calibrated for 3-5 cm layer; anaerobic iron reduction monitoring.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Western Zone</strong></td>
+                      <td>Coimbatore, Tiruppur, Erode, Dindigul (plains), Theni</td>
+                      <td>Red Loam, Gravelly Sandy Loam, Black Cotton</td>
+                      <td>650 – 750 mm (Shadow of Western Ghats)</td>
+                      <td>Pollachi Coconut, Erode Turmeric, Sugarcane, Cotton, Maize</td>
+                      <td>High evapotranspiration (ET₀) tracking; drip ring pressure regulation at 1.5 kg/cm².</td>
+                    </tr>
+                    <tr>
+                      <td><strong>High Altitude & Hilly Zone</strong></td>
+                      <td>The Nilgiris (Kotagiri, Ooty, Coonoor), Kodaikanal hills</td>
+                      <td>Laterite Montane Humic Soil (Acidic pH 4.5–5.5)</td>
+                      <td>1,200 – 1,800 mm (Bimodal + Mist)</td>
+                      <td>Camellia Sinensis (CTC Tea), Arabica Coffee, Potato, Carrot, Exotic Floriculture</td>
+                      <td>Mist condensation telemetry; soil acidity & humus organic carbon monitoring.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Southern Zone</strong></td>
+                      <td>Madurai, Virudhunagar, Sivagangai, Ramanathapuram, Thoothukudi, Tirunelveli</td>
+                      <td>Calcareous Black Cotton Soil, Red Sandy Soil</td>
+                      <td>750 – 850 mm</td>
+                      <td>Madurai Malli (GI Jasmine), Kuthiraivali, Kambu, Cotton, Chillies</td>
+                      <td>Alkaline pH buffering (pH 7.5–8.2); micro-sprinklers for heat stress cooling.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>North-Western Zone</strong></td>
+                      <td>Salem, Namakkal, Dharmapuri, Krishnagiri</td>
+                      <td>Red Non-Calcareous Loam, Shallow Gravel</td>
+                      <td>800 – 900 mm</td>
+                      <td>Tapioca, Mango (Alphonso / Totapuri), Ragi, Groundnut, Tomato</td>
+                      <td>Tensiometer triggers at 45% moisture; boron micronutrient monitoring for fruit setting.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>North-Eastern Zone</strong></td>
+                      <td>Kanchipuram, Chengalpattu, Tiruvallur, Tiruvannamalai, Villupuram</td>
+                      <td>Red Sandy Loam, Clay Loam, Coastal Sand</td>
+                      <td>1,000 – 1,200 mm</td>
+                      <td>Paddy, Groundnut, Sugarcane, Watermelon, Casuarina</td>
+                      <td>Salinity intrusion (EC) monitoring in coastal aquifers; tank irrigation sync.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>High Rainfall Zone</strong></td>
+                      <td>Kanyakumari District</td>
+                      <td>Deep Red Laterite & Alluvium</td>
+                      <td>1,450 – 1,600 mm (Both Monsoons)</td>
+                      <td>Rubber, Spices (Clove, Nutmeg), Coconut, Banana, Paddy</td>
+                      <td>Drainage valve automation; fungus/mildew humidity warning at >88% RH.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PANE 3: TAMIL NADU CROP PATTAM (பட்டம்) CALENDAR -->
+            <div id="guide-tab-pattam" class="guide-pane">
+              <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+                <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem;">
+                  Traditional Tamil Nadu Agrarian Seasons (பட்டம் - Pattam System)
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+                  Tamil Nadu agriculture has been guided for over two millennia by the seasonal <em>Pattam</em> calendar. Synchronizing IoT sensor schedules with these natural seasonal windows ensures optimal grain setting and water efficiency:
+                </p>
+              </div>
+
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Pattam (பட்டம்)</th>
+                      <th>Tamil / Gregorian Months</th>
+                      <th>Climatic Phase</th>
+                      <th>Recommended Crops & Varieties</th>
+                      <th>TNAU Crop Duration</th>
+                      <th>Irrigation & Soil Strategy</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Kuruvai Pattam (குறுவை)</strong></td>
+                      <td>Chithirai – Vaikasi<br><span style="color: var(--accent-cyan);">(June – September)</span></td>
+                      <td>Early Southwest Monsoon; Cauvery Mettur water release</td>
+                      <td>Short duration Paddy: <strong>ADT 43, ASD 16, TPS 5, CO 51</strong></td>
+                      <td>105 – 115 Days</td>
+                      <td>Rotational canal irrigation; nursery raised on dry beds; intensive nitrogen basal application.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Samba Pattam (சம்பா)</strong></td>
+                      <td>Aadi – Avani<br><span style="color: var(--accent-cyan);">(August – January)</span></td>
+                      <td>North-East Monsoon prime rain period</td>
+                      <td>Long duration Paddy: <strong>CR 1009 Sub 1, BPT 5204 (Andhra Ponni), ADT 53</strong></td>
+                      <td>135 – 150 Days</td>
+                      <td>Rainfed with automated drainage during heavy November spells; high potassium top dressing.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Thaladi Pattam (தாளடி)</strong></td>
+                      <td>Purattasi – Aippasi<br><span style="color: var(--accent-cyan);">(September – February)</span></td>
+                      <td>Second crop in double-crop delta wetlands</td>
+                      <td>Medium duration Paddy: <strong>ADT 39, ADT 46, White Ponni</strong></td>
+                      <td>125 – 135 Days</td>
+                      <td>Direct seeded or SRI transplanting; phosphorus solubilizers applied to combat winter chill.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Navarai Pattam (நவரை)</strong></td>
+                      <td>Karthigai – Margazhi<br><span style="color: var(--accent-cyan);">(December – April)</span></td>
+                      <td>Winter to early summer</td>
+                      <td>Irrigated Dry Paddy, Groundnut (<strong>TMV 7, VRI 8</strong>), Black Gram (<strong>VBN 8</strong>)</td>
+                      <td>90 – 105 Days</td>
+                      <td>Borewell / Open well drip irrigation; mulching to retain root-zone moisture as temperatures climb.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Chithirai / Kodai Pattam (கோடை)</strong></td>
+                      <td>Panguni – Chithirai<br><span style="color: var(--accent-cyan);">(April – May)</span></td>
+                      <td>Peak summer dry season (Agni Nakshatram)</td>
+                      <td>Sesame (<strong>TMV 4, TMV 7</strong>), Green Gram, Fodder Maize, Watermelon, Cluster Beans</td>
+                      <td>65 – 80 Days</td>
+                      <td>Night-time drip irrigation to prevent solar vaporization loss; bio-potash spray to build drought tolerance.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PANE 4: SOIL NPK DEFICIENCY & REMEDIATION MATRIX -->
+            <div id="guide-tab-npk" class="guide-pane">
+              <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+                <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem;">
+                  Soil NPK & Micronutrient Diagnostic Matrix
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+                  Optical and electrochemical soil probes constantly evaluate nutrient bioavailability. Use this field diagnostic guide to identify plant symptoms and execute immediate corrective bio-remediation:
+                </p>
+              </div>
+
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Nutrient Element</th>
+                      <th>Visual Field Symptom</th>
+                      <th>Impact on TN Crops</th>
+                      <th>Sensor Warning Level</th>
+                      <th>Scientific Remediation & Bio-Prescription</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Nitrogen (N)</strong></td>
+                      <td>General chlorosis: bottom older leaves turn uniform pale yellowish green, spreading upward; stunted tillering.</td>
+                      <td>Drastic drop in paddy tillers and tea shoot flushing.</td>
+                      <td>&lt; 200 kg/ha available N</td>
+                      <td>Foliar spray of <strong>2% Urea</strong> (20g/L water) or Azospirillum slurry root dip. Incorporate green manure (Daincha / Sunnhemp).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Phosphorus (P)</strong></td>
+                      <td>Leaves turn dark bronze-green with reddish-purple pigmentation along leaf veins; delayed flowering.</td>
+                      <td>Poor root anchorage in Cauvery Delta clay soils; reduced grain panicle count.</td>
+                      <td>&lt; 20 kg/ha available P</td>
+                      <td>Apply <strong>Single Super Phosphate (SSP)</strong> or Rock Phosphate enriched with <strong>Phosphobacteria</strong> (2 kg/acre mixed in FYM).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Potassium (K)</strong></td>
+                      <td>Marginal leaf scorch: leaf edges and tips turn rusty brown and curl downward (firing symptom).</td>
+                      <td>Weak stems leading to crop lodging; poor copra kernel weight in Pollachi coconut palms.</td>
+                      <td>&lt; 150 kg/ha available K</td>
+                      <td>Soil application of <strong>Muriate of Potash (MOP)</strong> 25-35 kg/acre. Foliar spray of Potassium Schoenite (1%) at flowering.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Zinc (Zn)</strong></td>
+                      <td>"Khaira" disease: rusty brown blotches on upper third of paddy leaf; mid-rib bleaching.</td>
+                      <td>Common in waterlogged alluvial paddy soils where zinc precipitates as insoluble hydroxide.</td>
+                      <td>&lt; 0.8 ppm DTPA-Zn</td>
+                      <td>Soil application of <strong>Zinc Sulphate (ZnSO₄) 25 kg/ha</strong>. Do not mix directly with DAP to avoid chemical lockout.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Iron (Fe)</strong></td>
+                      <td>Interveinal chlorosis: young emerging top leaves turn ivory white while veins remain faint green.</td>
+                      <td>Frequent in Madurai / Tirunelveli alkaline calcareous soils (pH &gt; 7.8).</td>
+                      <td>&lt; 4.0 ppm DTPA-Fe</td>
+                      <td>Foliar spray of <strong>Ferrous Sulphate 1% + Citric Acid 0.1%</strong> at 10-day intervals until greening resumes.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Boron (B)</strong></td>
+                      <td>Button shedding in coconut palms; hollow core in cauliflower; crinkling of young tea flush tips.</td>
+                      <td>Severe yield loss in Pollachi palms (&gt;40% button drop).</td>
+                      <td>&lt; 0.5 ppm hot water B</td>
+                      <td>Apply <strong>50g Borax (Disodium Octaborate)</strong> per coconut palm in circular ring basin twice annually with compost.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PANE 5: WATER BUDGETING & DRIP PROTOCOLS -->
+            <div id="guide-tab-water" class="guide-pane">
+              <div class="guide-grid">
+                <div class="guide-card">
+                  <div class="step-num">PROTOCOL 01 — FIELD CAPACITY</div>
+                  <h4>Soil Moisture Tensiometer Rules</h4>
+                  <p>Smart solenoid valves trigger automatically based on soil texture and Available Water Capacity (AWC):</p>
+                  <ul class="guide-steps-list">
+                    <li><strong>Sandy Loam (Erode / Western Zone):</strong> Actuates when soil moisture drops below 55%; stops at 82%.</li>
+                    <li><strong>Clay Alluvium (Delta Zone):</strong> Maintains 2-4 cm thin saturation layer; avoids deep water ponding.</li>
+                    <li><strong>Acidic Laterite (The Nilgiris):</strong> Actuation suppressed during morning mist and relative humidity &gt;85%.</li>
+                  </ul>
+                </div>
+
+                <div class="guide-card">
+                  <div class="step-num">PROTOCOL 02 — EVAPOTRANSPIRATION</div>
+                  <h4>Weather-Adaptive Water Budgeting</h4>
+                  <p>The IoT gateway continuously computes daily Crop Evapotranspiration (ETc = ETo × Kc):</p>
+                  <ul class="guide-steps-list">
+                    <li>Coconut Palms: 40–55 Liters per palm per day during summer; 20–25 Liters during cooler months.</li>
+                    <li>GI Turmeric: 6,000 Liters/acre/day delivered in 2 split pulses (morning 06:00 and evening 17:30).</li>
+                    <li>Rainfall Forecast Interlock: If radar detects &gt;10 mm rainfall incoming within 12 hours, scheduled cycles hold automatically.</li>
+                  </ul>
+                </div>
+
+                <div class="guide-card">
+                  <div class="step-num">PROTOCOL 03 — PRESSURE & EMITTERS</div>
+                  <h4>Drip Line Maintenance & Anti-Clogging</h4>
+                  <p>Tamil Nadu groundwater often has high dissolved carbonates. Prevent emitter clogging with routine flushes:</p>
+                  <ul class="guide-steps-list">
+                    <li>Operate inline sand media and disc filters at 2.0 to 2.5 kg/cm² operating pressure.</li>
+                    <li>Execute quarterly acid flushing with 0.1% Phosphoric / Hydrochloric acid to clear salt encrustations.</li>
+                    <li>Flush sub-main flush valves every fortnight for 3 minutes until clear water discharges.</li>
+                  </ul>
+                </div>
+
+                <div class="guide-card">
+                  <div class="step-num">PROTOCOL 04 — ENERGY MANAGEMENT</div>
+                  <h4>TNEB Agri Feeder & Solar Hybrid Sync</h4>
+                  <p>Platform integrates with Tamil Nadu's 3-phase agricultural power timing:</p>
+                  <ul class="guide-steps-list">
+                    <li>Automated synchronization with TANGEDCO 3-phase supply slots (Day / Night rotational cycles).</li>
+                    <li>Solar DC pump variable frequency drives (VFD) ramp water delivery during peak solar radiation (11:00 to 14:00).</li>
+                    <li>SMS alert dispatched to farmer's mobile phone if motor trips due to phase reversal or dry run.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANE 6: TAMIL NADU GOVT AGRI SCHEMES & SUBSIDIES -->
+            <div id="guide-tab-schemes" class="guide-pane">
+              <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+                <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem;">
+                  Tamil Nadu Government Agricultural Welfare Schemes & 100% Subsidies
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+                  Tamil Nadu offers nation-leading financial subsidies for micro-irrigation, solar pumps, and precision farming. Direct application links and qualifying criteria are cataloged below:
+                </p>
+              </div>
+
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <thead>
+                    <tr>
+                      <th>Scheme Name</th>
+                      <th>Department / Implementing Agency</th>
+                      <th>Subsidy Percentage</th>
+                      <th>Eligible Farm Categories</th>
+                      <th>Key Benefits & Assets Provided</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>PMKSY — Micro Irrigation Scheme</strong></td>
+                      <td>Department of Horticulture & Agricultural Engineering, TN</td>
+                      <td><span style="color: #10b981; font-weight: 800;">100% Subsidy</span> (Small/Marginal)<br>75% Subsidy (Other farmers)</td>
+                      <td>Small & Marginal Farmers (&lt; 5 Acres landholding) in all 38 districts</td>
+                      <td>Full drip irrigation system, lateral tubes, screen filters, fertigation venture, and micro-sprinklers installed at zero net cost.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Kalaignarin All Village Integrated Agri Development Programme (KAVIADP)</strong></td>
+                      <td>Department of Agriculture and Farmers Welfare, Govt of TN</td>
+                      <td><span style="color: #10b981; font-weight: 800;">70% to 100% Subsidy</span></td>
+                      <td>Village Panchayats across Tamil Nadu</td>
+                      <td>Conversion of fallow lands into cultivation; creation of community farm ponds; distribution of certified seed kits, coconut saplings, and power weeders.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Free Agricultural Electricity Scheme</strong></td>
+                      <td>TANGEDCO (Tamil Nadu Electricity Board)</td>
+                      <td><span style="color: #10b981; font-weight: 800;">100% Free Power (Zero Tariff)</span></td>
+                      <td>All registered agricultural pump sets (Borewell & Open Well)</td>
+                      <td>24/7 dedicated 3-phase agricultural power for irrigation pumping without electric billing.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Chief Minister's Solar Powered Pump Set Scheme</strong></td>
+                      <td>Agricultural Engineering Department, TN</td>
+                      <td><span style="color: #10b981; font-weight: 800;">70% Government Subsidy</span></td>
+                      <td>Farmers in off-grid / tail-end canal areas</td>
+                      <td>5 HP, 7.5 HP, and 10 HP AC/DC standalone solar pump sets with 5-year comprehensive maintenance warranty.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Uzhavan Mobile App & TNAU Agri-Tech Portal</strong></td>
+                      <td>Govt of Tamil Nadu & TNAU Coimbatore</td>
+                      <td>Free Digital Advisory Service</td>
+                      <td>All Tamil Nadu Agriculturists</td>
+                      <td>Real-time seed availability in ADA offices; custom hiring farm machinery booking; market intelligence; direct DAP/Urea quota tracking.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>PMFBY / Tamil Nadu Crop Insurance Package</strong></td>
+                      <td>Agriculture Department & AIC of India</td>
+                      <td>90%+ Premium subsidized by TN Govt</td>
+                      <td>Notified crops (Paddy, Banana, Turmeric, Cotton, Millets)</td>
+                      <td>Comprehensive financial payout for crop loss due to drought, unseasonal rainfall, floods, pest epidemics, or cyclones.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PANE 7: INTERACTIVE FERTIGATION & DOSAGE CALCULATOR -->
+            <div id="guide-tab-calc" class="guide-pane">
+              <div class="calc-card">
+                <div style="margin-bottom: 1.25rem;">
+                  <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Scientific Prescription Engine</span>
+                  <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.25rem;">
+                    Precision Fertigation & Bio-Nutrient Calculator
+                  </h3>
+                  <p style="color: var(--text-secondary); font-size: 0.82rem;">
+                    Input your crop, land acreage, and vegetative phase to generate tailored NPK fertilizer weights, bio-inoculant packet counts, and daily drip water runtimes.
+                  </p>
+                </div>
+
+                <div class="calc-grid">
+                  <!-- Inputs Form -->
+                  <div>
+                    <form onsubmit="App.calculateFertigation(event)">
+                      <div class="form-group">
+                        <label for="calc-crop">Select Cultivated Crop</label>
+                        <select id="calc-crop" class="input-field" onchange="App.calculateFertigation()">
+                          <option value="paddy">Samba / Kuruvai Paddy (Cauvery Delta)</option>
+                          <option value="coconut">Pollachi Coconut Palm (Western Zone)</option>
+                          <option value="turmeric">GI Certified Erode Turmeric</option>
+                          <option value="tea">Nilgiris Kotagiri Tea (High Altitude)</option>
+                          <option value="jasmine">Madurai Gundu Malli (GI Jasmine)</option>
+                          <option value="sugarcane">High-Recovery Sugarcane (Co 86032)</option>
+                        </select>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group">
+                          <label for="calc-acres">Land Holding Area (Acres)</label>
+                          <input type="number" id="calc-acres" class="input-field" min="0.25" max="250" step="0.25" value="5" oninput="App.calculateFertigation()" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="calc-stage">Crop Growth Phase</label>
+                          <select id="calc-stage" class="input-field" onchange="App.calculateFertigation()">
+                            <option value="basal">Nursery / Basal Preparation</option>
+                            <option value="vegetative" selected>Active Vegetative Growth / Tillering</option>
+                            <option value="flowering">Flowering / Flush Tipping / Nut Setting</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="calc-soil">Soil Texture Type</label>
+                        <select id="calc-soil" class="input-field" onchange="App.calculateFertigation()">
+                          <option value="alluvial">Cauvery Coastal Alluvial Clay</option>
+                          <option value="redloam">Western Zone Red Sandy Loam</option>
+                          <option value="laterite">Nilgiris Acidic Humic Laterite</option>
+                          <option value="blackcotton">Southern Calcareous Black Cotton</option>
+                        </select>
+                      </div>
+
+                      <button type="submit" class="btn btn-blue" style="width: 100%; margin-top: 0.5rem;">
+                        ⚡ Re-Calculate Precision Prescription →
+                      </button>
+                    </form>
+                  </div>
+
+                  <!-- Output Results Card -->
+                  <div class="calc-results-panel">
+                    <div id="calc-results-output">
+                      <div style="font-size: 0.85rem; font-weight: 800; color: var(--accent-cyan); margin-bottom: 0.65rem;">
+                        Prescription for 5 Acre(s) — Samba / Kuruvai Paddy (VEGETATIVE STAGE):
+                      </div>
+                      <div class="calc-metric-badge">
+                        <span class="m-name">Urea (Nitrogen 46%):</span>
+                        <span class="m-val">275 kg</span>
+                      </div>
+                      <div class="calc-metric-badge">
+                        <span class="m-name">DAP (Di-Ammonium Phosphate):</span>
+                        <span class="m-val">200 kg</span>
+                      </div>
+                      <div class="calc-metric-badge">
+                        <span class="m-name">MOP (Muriate of Potash):</span>
+                        <span class="m-val">125 kg</span>
+                      </div>
+                      <div class="calc-metric-badge">
+                        <span class="m-name">Bio-Fertilizer (Azospirillum + Phospho):</span>
+                        <span class="m-val">20 Packets (200g)</span>
+                      </div>
+                      <div class="calc-metric-badge">
+                        <span class="m-name">Essential Micronutrient Additive:</span>
+                        <span class="m-val" style="font-size: 0.8rem; color: #fff;">Zinc Sulphate (ZnSO₄) 10 kg/acre</span>
+                      </div>
+                      <div class="calc-metric-badge" style="border-left-color: var(--accent-cyan);">
+                        <span class="m-name">Daily Drip Water Requirement:</span>
+                        <span class="m-val" style="color: var(--accent-cyan);">57,500 Liters / Day</span>
+                      </div>
+                      <div class="calc-metric-badge" style="border-left-color: #10b981;">
+                        <span class="m-name">Automated Solenoid Drip Runtime:</span>
+                        <span class="m-val" style="color: #10b981;">90 Minutes / Cycle</span>
+                      </div>
+                      <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.85rem; line-height: 1.5; background: #0c101a; padding: 0.65rem; border-radius: var(--radius-sm); border-left: 2px solid var(--accent-cyan);">
+                        💡 <strong>TNAU Agronomist Note:</strong> Maintain 3-5 cm thin water layer. Apply bio-potash spray on Day 45 for grain density.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 4: PROJECT REVENUE & FINANCIALS -->
+          <section id="revenue-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Financial Metrics</span>
+                <h2>Project Revenue & Commercial Performance</h2>
+                <p>Transparent financials, subscription packages, and financial yields across deployed districts.</p>
+              </div>
+            </div>
+
+            <div id="revenue-container"></div>
+          </section>
+
+          <!-- SECTION 5: CUSTOMER DIRECTORY & PROFILES -->
+          <section id="customers-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Farmer Registry</span>
+                <h2>Customer Details & Agro-Profiles</h2>
+                <p>Verified farmers, landholdings, primary crops, and Terms & Conditions records.</p>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="App.openProfileModal(App.state.currentUser.id)">
+                ✏️ Edit My Profile
+              </button>
+            </div>
+
+            <div id="customers-container" class="customer-grid"></div>
+          </section>
+
+          <!-- SECTION 6: CUSTOMER REVIEWS & FEEDBACK -->
+          <section id="reviews-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-blue" style="margin-bottom: 0.35rem;">Farmer Testimonials</span>
+                <h2>Customer Reviews & Field Feedback</h2>
+                <p>Authentic feedback from agriculturists across Cauvery Delta, Pollachi, and the Nilgiris.</p>
+              </div>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div id="reviews-container" class="reviews-grid"></div>
+
+            <!-- Submit Review Form -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.75rem; max-width: 720px; margin: 0 auto;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem; text-align: center;">
+                Share Your Tamil Nadu Farm Experience
+              </h3>
+              <p style="color: var(--text-secondary); font-size: 0.82rem; text-align: center; margin-bottom: 1.25rem;">
+                Your feedback directly optimizes soil advisory models and irrigation schedules.
+              </p>
+
+              <form onsubmit="App.handleReviewSubmit(event)">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="rev-author">Your Name</label>
+                    <input type="text" id="rev-author" class="input-field" placeholder="e.g. S. Vasanthi" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="rev-location">Location / District</label>
+                    <input type="text" id="rev-location" class="input-field" placeholder="e.g. Orathanadu, Thanjavur" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="rev-crop">Crops Cultivated</label>
+                    <input type="text" id="rev-crop" class="input-field" placeholder="e.g. Samba Paddy & Pulses" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="rev-rating">Rating (Stars)</label>
+                    <select id="rev-rating" class="input-field">
+                      <option value="5">★★★★★ (5 / 5 - Exceptional)</option>
+                      <option value="4.8">★★★★★ (4.8 / 5 - High Yield)</option>
+                      <option value="4.5">★★★★☆ (4.5 / 5 - Very Good)</option>
+                      <option value="4">★★★★☆ (4 / 5 - Good)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="rev-title">Review Headline</label>
+                  <input type="text" id="rev-title" class="input-field" placeholder="e.g. Cauvery water saved and yield boosted by 25%" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="rev-comment">Detailed Feedback & Observations</label>
+                  <textarea id="rev-comment" class="input-field" rows="3" placeholder="Describe how live soil moisture, NPK alerts, and automated irrigation impacted your crop..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Farmer Avatar Photo</label>
+                  <div class="dp-upload-wrapper" style="margin-bottom: 0;">
+                    <div class="dp-preview-box" onclick="document.getElementById('rev-avatar-file').click()" title="Click to upload photo" style="width: 50px; height: 50px;">
+                      <img id="rev-dp-preview" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=70" alt="Avatar Preview">
+                      <div class="dp-upload-overlay"><span>📷</span></div>
+                    </div>
+                    <div class="dp-upload-meta">
+                      <input type="file" id="rev-avatar-file" accept="image/*" style="display: none;" onchange="App.handleDpFileSelect(event, 'rev')">
+                      <input type="hidden" id="rev-avatar" value="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=70">
+                      <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <button type="button" class="btn-upload-file" onclick="document.getElementById('rev-avatar-file').click()">
+                          📁 Choose Photo
+                        </button>
+                        <span id="rev-file-name" style="font-size: 0.72rem; color: var(--text-muted);">Select image from device</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-blue" style="width: 100%;">
+                  Submit Farmer Review to Live Feed →
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <!-- SECTION 7: CREATOR COLUMN: SANOFAR FATHIMA I (WITH "AD" MONOGRAM DP) -->
+          <section id="creator-section" class="section-wrapper">
+            <div class="section-head">
+              <div class="section-title-wrap">
+                <span class="badge badge-creator" style="margin-bottom: 0.35rem;">★ System Architecture & Leadership</span>
+                <h2>Project Creator: Sanofar Fathima I</h2>
+                <p>The vision, architecture, and technology behind Tamil Nadu's smart agricultural revolution.</p>
+              </div>
+            </div>
+
+            <div class="creator-banner-grid">
+              <div style="text-align: center;">
+                <!-- Styled AD Monogram Avatar Badge (Replaces Girl Photo) -->
+                <div class="ad-avatar-badge large" style="margin: 0 auto 1rem;">
+                  AD
+                </div>
+                <h3 style="font-size: 1.4rem; font-weight: 800;">Sanofar Fathima I</h3>
+                <div style="color: var(--accent-cyan); font-size: 0.82rem; font-weight: 700; margin-bottom: 0.5rem;">
+                  Founder & Chief Agricultural AI Architect
+                </div>
+                <div class="badge badge-creator">Creator Admin Keyholder</div>
+              </div>
+
+              <div>
+                <h4 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.75rem;">
+                  Architectural Vision & Technological Impact
+                </h4>
+                <p style="color: var(--text-secondary); margin-bottom: 0.85rem; font-size: 0.88rem; line-height: 1.6;">
+                  <strong>Sanofar Fathima I</strong> envisioned and designed the Smart Agricultural Management System to resolve crucial agro-challenges facing Tamil Nadu: erratic monsoon distribution, Cauvery basin water scarcity, unscientific chemical fertilizer dumping, and lack of real-time soil telemetry for farmers.
+                </p>
+                <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.88rem; line-height: 1.6;">
+                  Under her technical direction, the platform integrates low-cost LoRaWAN soil moisture probes, NPK optical bio-sensors, and satellite NDVI vegetation analysis into a single unified dashboard with automated drip solenoid control and localized agronomic advisory.
+                </p>
+
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                  <button class="btn btn-blue btn-sm" onclick="App.handleAdminPortalClick()">
+                    🔒 Access Sanofar Fathima I Admin Nexus
+                  </button>
+                  <a href="#about-section" class="btn btn-outline btn-sm">
+                    Contact Creator's Desk
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 8: ABOUT & SOCIAL MEDIA CONTENT -->
+          <section id="about-section" class="section-wrapper">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+              <div>
+                <span class="badge badge-blue" style="margin-bottom: 0.5rem;">System Blueprint</span>
+                <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem;">About Smart Agricultural Management System</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.75rem;">
+                  The <strong>Smart Agricultural Management System</strong> is an end-to-end cyber-physical agricultural framework conceived by <strong>Sanofar Fathima I</strong>. It synthesizes micro-scale soil physics with satellite geospatial telemetry to revolutionize precision farming across all 38 districts of Tamil Nadu.
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem;">
+                  Official Social Channels & Farmer Telephony:
+                </p>
+                <div id="social-channels-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;"></div>
+              </div>
+
+              <!-- Contact Desk Card -->
+              <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.5rem;">
+                <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.35rem;">
+                  Agricultural Support Desk
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 1rem;">
+                  Reach creator Sanofar Fathima I and the deployment engineering team.
+                </p>
+
+                <form onsubmit="App.handleContactSubmit(event)">
+                  <div class="form-group">
+                    <label for="contact-name">Full Name</label>
+                    <input type="text" id="contact-name" class="input-field" placeholder="Your name" required>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="contact-email">Email Address</label>
+                      <input type="email" id="contact-email" class="input-field" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="contact-phone">Phone / WhatsApp</label>
+                      <input type="tel" id="contact-phone" class="input-field" placeholder="+91 94440 00000">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="contact-district">Tamil Nadu District</label>
+                    <select id="contact-district" class="input-field">
+                      <option value="Thanjavur">Thanjavur</option>
+                      <option value="Coimbatore">Coimbatore (Pollachi)</option>
+                      <option value="Erode">Erode</option>
+                      <option value="The Nilgiris">The Nilgiris</option>
+                      <option value="Madurai">Madurai</option>
+                      <option value="Tirunelveli">Tirunelveli</option>
+                      <option value="Other Tamil Nadu District">Other District</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="contact-message">Inquiry / Sensor Installation Request</label>
+                    <textarea id="contact-message" class="input-field" rows="2" placeholder="Tell us about your farmland, acreage, and telemetry requirements..." required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-blue" style="width: 100%;">
+                    Send Inquiry to Engineering Desk →
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          <!-- Footer -->
+          <footer style="border-top: 1px solid var(--border-light); padding-top: 1.5rem; margin-top: 3rem; font-size: 0.78rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              © 2026 Smart Agricultural Management System. Conceived & Spearheaded by <strong>Sanofar Fathima I</strong>.
+            </div>
+            <div>
+              UI Theme: High-Contrast Obsidian & Cobalt Blue | Tamil Nadu Agro-Informatics
+            </div>
+          </footer>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODALS
+       ========================================================================= -->
+
+  <!-- MODAL 1: CUSTOMER PROFILE VIEW & EDIT (DP, Name, DOB, Email, Terms, etc.) -->
+  <div id="profile-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-profile-title">Customer Farmer Profile</h3>
+        <button class="modal-close-btn" onclick="App.closeProfileModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="App.handleSaveProfile(event)">
+          <input type="hidden" id="prof-user-id">
+
+          <!-- Profile Picture (DP) File Uploader -->
+          <div class="dp-upload-wrapper">
+            <div id="prof-dp-container" class="dp-preview-box" onclick="document.getElementById('prof-avatar-file').click()" title="Click to upload new photo">
+              <img id="prof-dp-preview" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=70" alt="Profile Picture">
+              <div class="dp-upload-overlay">
+                <span>📷 Change</span>
+              </div>
+            </div>
+            <div class="dp-upload-meta">
+              <label class="dp-label">Profile Picture (DP)</label>
+              <input type="file" id="prof-avatar-file" accept="image/*" style="display: none;" onchange="App.handleDpFileSelect(event, 'prof')">
+              <input type="hidden" id="prof-avatar-url">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+                <button type="button" class="btn-upload-file" onclick="document.getElementById('prof-avatar-file').click()">
+                  📁 Upload Photo from Device
+                </button>
+                <span id="prof-file-name" style="font-size: 0.72rem; color: var(--text-muted);">JPG, PNG or WEBP</span>
+              </div>
+              <div style="font-size: 0.68rem; color: var(--accent-cyan); margin-top: 0.35rem;">
+                ✓ Photo is auto-compressed for lightning fast loading
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prof-name">Full Name</label>
+              <input type="text" id="prof-name" class="input-field" required>
+            </div>
+            <div class="form-group">
+              <label for="prof-email">Email Address</label>
+              <input type="email" id="prof-email" class="input-field" readonly style="opacity: 0.7; cursor: not-allowed;">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prof-phone">Phone Number</label>
+              <input type="tel" id="prof-phone" class="input-field" required>
+            </div>
+            <div class="form-group">
+              <label for="prof-dob">Date of Birth (DOB)</label>
+              <input type="date" id="prof-dob" class="input-field" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prof-district">Tamil Nadu District</label>
+              <select id="prof-district" class="input-field">
+                <option value="Thanjavur">Thanjavur</option>
+                <option value="Coimbatore (Pollachi)">Coimbatore (Pollachi)</option>
+                <option value="Erode">Erode</option>
+                <option value="The Nilgiris (Kotagiri)">The Nilgiris (Kotagiri)</option>
+                <option value="Madurai">Madurai</option>
+                <option value="Tirunelveli">Tirunelveli</option>
+                <option value="Salem">Salem</option>
+                <option value="Dindigul">Dindigul</option>
+                <option value="Tiruchirappalli">Tiruchirappalli</option>
+                <option value="Cuddalore (Panruti)">Cuddalore (Panruti)</option>
+                <option value="Chennai / Thanjavur">Chennai / Thanjavur</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prof-farmsize">Landholding Area (Acres)</label>
+              <input type="text" id="prof-farmsize" class="input-field" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prof-crop">Primary Crops Grown</label>
+            <input type="text" id="prof-crop" class="input-field" required>
+          </div>
+
+          <!-- Verified Terms and Conditions Banner -->
+          <div style="background: #000; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 0.85rem; margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Terms & Conditions Status</div>
+                <div style="font-weight: 700; color: var(--accent-cyan); font-size: 0.85rem;" id="prof-terms-status">
+                  ✓ Verified & Accepted
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="App.openTermsModal()">
+                Read Terms
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-outline" onclick="App.closeProfileModal()">Cancel</button>
+            <button type="submit" class="btn btn-blue">Save Profile Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: CREATOR ADMIN NEXUS (RESTRICTED STRICTLY TO SANOFAR FATHIMA I) -->
+  <div id="admin-nexus-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 760px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="badge badge-creator">🔒 SECURE ADMIN NEXUS</span>
+          <h3 style="margin-left: 0.5rem;">Sanofar Fathima I — System Command Center</h3>
+        </div>
+        <button class="modal-close-btn" onclick="App.closeAdminNexusModal()">×</button>
+      </div>
+      <div class="modal-body" id="admin-nexus-content">
+        <p style="color: var(--text-secondary);">Loading administrative telemetry...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: ACCESS DENIED MODAL (WHEN A CUSTOMER TRIES TO ACCESS ADMIN BLOCK) -->
+  <div id="access-denied-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 460px; text-align: center;">
+      <div class="modal-header" style="border-bottom-color: rgba(239, 68, 68, 0.3);">
+        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--danger); font-weight: 800;">
+          <span>🛑</span> ACCESS RESTRICTED
+        </div>
+        <button class="modal-close-btn" onclick="App.closeAccessDeniedModal()">×</button>
+      </div>
+      <div class="modal-body" style="padding: 2rem 1.75rem;">
+        <div style="font-size: 3rem; margin-bottom: 0.85rem;">🛡️</div>
+        <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.65rem;">
+          Admin Block Access Denied
+        </h3>
+        <p id="access-denied-message" style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          The Admin Command Portal is strictly restricted to the creator <strong>Sanofar Fathima I</strong>. Customers cannot access administrative management and sensor actuation overrides.
+        </p>
+        <button class="btn btn-outline" style="width: 100%;" onclick="App.closeAccessDeniedModal()">
+          Understood & Return to Farm Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: TERMS AND CONDITIONS MODAL -->
+  <div id="terms-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Tamil Nadu Smart Agri — Terms & Conditions</h3>
+        <button class="modal-close-btn" onclick="App.closeTermsModal()">×</button>
+      </div>
+      <div class="modal-body" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+        <h4 style="color: #fff; margin-bottom: 0.4rem;">1. Agronomic Telemetry & Soil Sensor Usage</h4>
+        <p style="margin-bottom: 0.85rem;">
+          By registering with the Smart Agricultural Management System, the user permits automated ground sensor telemetry (moisture, pH, NPK, temperature) to be transmitted to the central AI advisory engine engineered by Sanofar Fathima I.
+        </p>
+
+        <h4 style="color: #fff; margin-bottom: 0.4rem;">2. Water Conservation & Actuation Safety</h4>
+        <p style="margin-bottom: 0.85rem;">
+          Automated drip solenoid triggers follow Cauvery and Tamirabarani river basin conservation rules. Farmers retain manual physical override rights on farm valves at all times.
+        </p>
+
+        <h4 style="color: #fff; margin-bottom: 0.4rem;">3. Creator Administrative Governance</h4>
+        <p style="margin-bottom: 0.85rem;">
+          System architecture, global telemetry calibrations, and emergency drought mitigation overrides are exclusively governed by creator Sanofar Fathima I. Regular customer accounts have no administrative modification privileges.
+        </p>
+
+        <h4 style="color: #fff; margin-bottom: 0.4rem;">4. Privacy & Land Title Data</h4>
+        <p style="margin-bottom: 1.25rem;">
+          Farm land coordinates and survey numbers in Tamil Nadu are protected with end-to-end encryption and will not be shared with unauthorized third parties.
+        </p>
+
+        <button class="btn btn-blue" style="width: 100%;" onclick="App.closeTermsModal()">
+          I Acknowledge and Agree to Terms
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

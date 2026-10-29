@@ -1,0 +1,15 @@
+{
+  "name": "agriculture",
+  "version": "1.0.0",
+  "description": "Smart Agriculture TN Management System",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "npm start --prefix backend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
