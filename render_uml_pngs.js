@@ -80,3 +80,4 @@ umlList.forEach(item => {
 });
 
 console.log('All 7 UML diagrams rendered to PNG!');
+
