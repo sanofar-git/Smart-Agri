@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://smart-agri-mc3f.onrender.com/api/$1"
+    }
+  ]
+}
